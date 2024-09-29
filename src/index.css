@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: var(--primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --box-shadow-inside: 0px 1px 3px 1px rgba(0, 0, 0, 0.25) inset;
+  --box-shadow-outside: 0px 1px 3px 1px rgba(0, 0, 0, 0.2);
+
+  --primary: #dc0a2d;
+  --bug: #a7b723;
+  --dark: #75574c;
+  --dragon: #7037ff;
+  --electric: #f9cf30;
+  --fairy: #e69eac;
+  --fighting: #c12239;
+  --fire: #f57d31;
+  --flying: #a891ec;
+  --ghost: #70559b;
+  --normal: #aaa67f;
+  --grass: #74cb48;
+  --ground: #dec16b;
+  --ice: #9ad6df;
+  --poison: #a43e9e;
+  --psychic: #fb5584;
+  --rock: #b69e31;
+  --steel: #b7b9d0;
+  --water: #6493eb;
+
+  --dark-primary: #1d1d1d;
+  --dark-gray: #212121;
+  --medium-gray: #666666;
+  --light-gray: #e0e0e0;
+  --grayscale-background: #efefef;
+  --background: #ffffff;
+}
+
+body {
+  margin: 0;
+}
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
