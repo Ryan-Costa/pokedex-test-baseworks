@@ -1,26 +1,21 @@
 
 <script setup lang="ts">
-import { ref, defineEmits, watch } from 'vue';
+import { ref, defineEmits } from 'vue';
+import { useToggleStore } from '../store/toggle-store';
 
+
+const toggleStore = useToggleStore()
 const search = ref<string>('');
-const selectedOrder = ref<string>('name') // Default order by name
 
 const emit = defineEmits<{
-    (e: 'update:search', value: string): void;
-    (e: 'update:order', value: string): void;
+  (e: 'update:search', value: string): void;
 }>();
 
-watch(selectedOrder, (newVal) => {
-  console.log(newVal);
-});
+const updateSearch = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  emit('update:search', input.value);
+};
 
-function onSearch() {
-    emit('update:search', search.value);
-}
-
-function onOrderChange() {
-  emit('update:order', selectedOrder.value);
-}
 </script>
 
 <template>
@@ -37,34 +32,20 @@ function onOrderChange() {
             v-model="search"
             type="text"
             placeholder="Buscar"
-            @input="onSearch"
+            @input="updateSearch"
           />
         </div>
-        <div class="bg-background rounded-full flex items-center justify-center px-3 py-3 shadow-inside-custom cursor-pointer">
-          <span class="pi pi-hashtag text-primary"></span>
-        </div>
+
+        <button @click="toggleStore.toggleState" class="bg-background rounded-full flex items-center justify-center w-12 h-10 shadow-inside-custom cursor-pointer">
+          <span v-if="toggleStore.state === false" class="text-primary leading-3 text-lg">#</span>
+          <span v-else class="underline text-primary leading-3 text-lg">A</span>
+          <!-- <img v-else class="w-4 h-4" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg" alt="Order by Pokemon"> -->
+        </button>
       </div>
     </header>
-
-    <div class="absolute top-24 right-4 bg-primary px-1 pb-1 z-30 shadow-outside-custom rounded-xl">
-      <h4 class="text-background px-5 py-4 font-bold text-sm">Ordenar por:</h4>
-
-      <div class="bg-background px-5 py-4 rounded-lg shadow-inside-custom space-y-4">
-
-        <!-- Opção "Number" -->
-        <div class="flex items-center space-x-2">
-          <input id="number" name="order" v-model="selectedOrder" @click="onOrderChange" value="number" type="radio" class="appearance-none w-4 h-4 border-2 border-primary rounded-full checked:bg-primary checked:border-transparent">
-          <label for="number" class="text-black font-normal text-sm">Number</label>
-        </div>
-
-        <!-- Opção "Name" -->
-        <div class="flex items-center space-x-2">
-          <input id="name" name="order" v-model="selectedOrder" @click="onOrderChange" value="name" type="radio" class="appearance-none w-4 h-4 border-2 border-primary rounded-full checked:bg-primary checked: checked:border-transparent">
-          <label for="name" class="text-black font-normal text-sm">Name</label>
-        </div>
-      </div>
-    </div>
 </template>
+
+
   
 
   
