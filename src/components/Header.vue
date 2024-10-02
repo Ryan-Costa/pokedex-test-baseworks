@@ -24,6 +24,7 @@ const updateSearch = (event: Event) => {
         <img src="../assets/pokeball.svg" alt="Pokeball icon">
         <h1 class="font-bold text-2xl text-background">Pokédex</h1>
       </div>
+
       <div class="flex items-center gap-4">
         <div class="w-full bg-background rounded-full flex items-center px-3 py-2 shadow-inside-custom">
           <span class="pi pi-search text-primary" />
@@ -31,7 +32,7 @@ const updateSearch = (event: Event) => {
             class="bg-background rounded-full px-3 w-full outline-none text-mediumGray"
             v-model="search"
             type="text"
-            placeholder="Buscar"
+            placeholder="Search"
             @input="updateSearch"
           />
         </div>
@@ -39,7 +40,6 @@ const updateSearch = (event: Event) => {
         <button @click="toggleStore.toggleState" class="bg-background rounded-full flex items-center justify-center w-12 h-10 shadow-inside-custom cursor-pointer">
           <span v-if="toggleStore.state === false" class="text-primary leading-3 text-lg">#</span>
           <span v-else class="underline text-primary leading-3 text-lg">A</span>
-          <!-- <img v-else class="w-4 h-4" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg" alt="Order by Pokemon"> -->
         </button>
       </div>
     </header>

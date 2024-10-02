@@ -5,12 +5,13 @@
   import axios from "axios"
   import Header from '../components/Header.vue';
   import PokemonCard from '../components/PokemonCard.vue';
+import { useToggleStore } from '../store/toggle-store';
   
   const pokemons = ref<Pokemon[]>([])
   const search = ref<string>('')
-    const order = ref<string>('name')
+  const toggleStore = useToggleStore();
 
-  axios.get('pokemon?limit=10').then((response) => {
+  axios.get('pokemon?limit=12').then((response) => {
     pokemons.value = response.data.results
     console.log(response.data.results)
   })
@@ -20,33 +21,29 @@
   };
 
   const filteredPokemons = computed(() => {
-    const searchTerm = search.value.toLowerCase();
+  const searchTerm = search.value.toLowerCase();
 
-    return pokemons.value.filter((pokemon) => {
-      if (order.value === 'number') {
-        // Filter by Pokemon number (assuming ID is in the URL)
-        const pokemonId = parseInt(pokemon.url.split('/').slice(-2)[0]);
-        return pokemonId.toString().includes(searchTerm);
-      } else {
-        // Default filter by name
-        return pokemon.name.toLowerCase().includes(searchTerm);
-      }
-    })
-  })
+  return pokemons.value.filter((pokemon) => {
+    if (toggleStore.state) {
+      const pokemonId = parseInt(pokemon.url.split('/').slice(-2)[0]);
+      return pokemonId.toString().includes(searchTerm);
 
-  const handleOrderChange = (newOrder: string) => {
-    order.value = newOrder;
-  }
+    } else {
+      return pokemon.name.toLowerCase().includes(searchTerm);
+    }
+  });
+});
+
 </script>
 
 <template>
-    <Header @update:search="updateSearch" @update:order="handleOrderChange" />
+    <main class="h-full p-1">
+    <Header @update:search="updateSearch" />
 
-    <main class="h-full">
-      <div class="bg-background rounded-md flex items-center px-3 py-6 shadow-inside-custom">
-        <div class="grid grid-cols-3 gap-2 w-full">
-          <PokemonCard v-for="pokemon in filteredPokemons" :key="pokemon.url" :pokemon="pokemon" />
-        </div>
+    <div class="bg-background min-h-[650px] rounded-md flex items-start px-3 lg:px-12 py-6 lg:py-12 shadow-inside-custom">
+      <div class="grid grid-cols-3 gap-2 md:gap-4 lg:gap-12 w-full">
+        <PokemonCard v-for="pokemon in filteredPokemons" :key="pokemon.url" :pokemon="pokemon" />
       </div>
-    </main>
+    </div>
+  </main>
 </template>

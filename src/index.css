@@ -47,8 +47,9 @@
   --background: #ffffff;
 }
 
-body {
-  margin: 0;
+:dark {
+  --primary: #87071c;
+  --background: #1d1d1d;
 }
 
 /* @media (prefers-color-scheme: light) {
