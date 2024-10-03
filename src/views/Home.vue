@@ -68,7 +68,7 @@
         />
 
       <div class="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-12 w-full">
-        <PokemonCard v-for="pokemon in filteredPokemons.slice(0, rowsPerPage)" :key="pokemon.url" :pokemon="pokemon" />
+        <PokemonCard v-for="pokemon in filteredPokemons" :key="pokemon.url" :pokemon="pokemon" />
       </div>
 
         <Paginator
