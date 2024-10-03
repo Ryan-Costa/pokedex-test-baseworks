@@ -37,11 +37,11 @@ import { useToggleStore } from '../store/toggle-store';
 </script>
 
 <template>
-    <main class="h-full p-1">
+    <main class="h-full p-1 lg:p-6">
     <Header @update:search="updateSearch" />
 
-    <div class="bg-background min-h-[650px] rounded-md flex items-start px-3 lg:px-12 py-6 lg:py-12 shadow-inside-custom">
-      <div class="grid grid-cols-3 gap-2 md:gap-4 lg:gap-12 w-full">
+    <div class="bg-background min-h-[650px] lg:min-h-[900px] rounded-md flex items-start px-3 lg:px-12 py-6 lg:py-12 shadow-inside-custom">
+      <div class="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-12 w-full">
         <PokemonCard v-for="pokemon in filteredPokemons" :key="pokemon.url" :pokemon="pokemon" />
       </div>
     </div>

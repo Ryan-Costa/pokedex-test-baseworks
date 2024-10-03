@@ -18,7 +18,7 @@ const pokemonId = get_id(props.pokemon)
 
 <template>
   <router-link :to="`/pokemon/${pokemonId}`">
-    <div class="relative h-[108px] md:h-[240px] p-1 md:px-4 rounded-md flex flex-col justify-center md:justify-around items-center shadow-outside-custom">
+    <div class="relative h-[108px] md:h-[240px] p-1 md:px-4 lg:h-[320px] rounded-md flex flex-col justify-center md:justify-around items-center shadow-outside-custom">
       <div class="w-full flex items-center justify-end">
         <p class="text-mediumGray text-[8px] md:text-sm">#{{ pokemonId.toString().padStart(3, '0') }}</p>
       </div>
@@ -28,8 +28,8 @@ const pokemonId = get_id(props.pokemon)
         :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${get_id(pokemon)}.svg`" 
         :alt="pokemon.name"
       >
-      <p class="text-darkPrimary text-[10px] md:text-lg z-20">{{ pokemon.name }}</p>
-      <div class="absolute bg-grayscaleBackground w-full h-11 md:h-20 rounded-lg bottom-0 z-10"></div>
+      <p class="text-darkPrimary text-[10px] md:text-lg lg:text-3xl z-20">{{ pokemon.name }}</p>
+      <div class="absolute bg-grayscaleBackground w-full h-11 md:h-20 lg:h-40 rounded-lg bottom-0 z-10"></div>
     </div>
   </router-link>
 </template>

@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "420px",
+      },
       boxShadow: {
         "inside-custom": "var(--box-shadow-inside)",
         "outside-custom": "var(--box-shadow-outside)",
