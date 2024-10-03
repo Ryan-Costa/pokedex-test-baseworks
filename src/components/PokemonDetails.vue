@@ -3,31 +3,12 @@ import axios from "axios";
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { PokemonDetails, PokemonTypeColors } from "../types/pokemon";
-import Paginator from 'primevue/paginator';
+import { typeColors } from "../consts";
 
 const route = useRoute();
 const pokemon = ref<PokemonDetails | null>(null);
 
-const typeColors: Record<PokemonTypeColors, string> = {
-  bug: "var(--bug)",
-  dark: "var(--dark)",
-  dragon: "var(--dragon)",
-  electric: "var(--electric)",
-  fairy: "var(--fairy)",
-  fighting: "var(--fighting)",
-  fire: "var(--fire)",
-  flying: "var(--flying)",
-  ghost: "var(--ghost)",
-  normal: "var(--normal)",
-  grass: "var(--grass)",
-  ground: "var(--ground)",
-  ice: "var(--ice)",
-  poison: "var(--poison)",
-  psychic: "var(--psychic)",
-  rock: "var(--rock)",
-  steel: "var(--steel)",
-  water: "var(--water)",
-};
+
 
 const fetchPokemonDetails = async () => {
   const pokemonName = route.params.name as string;
@@ -102,8 +83,8 @@ const abbreviatedBaseStats = ["HP", "ATK", "DEF", "SATK", "SDEF", "SPD"];
         <div
           class="flex w-full justify-between items-center px-3 xs:px-8 md:px-24 lg:px-72"
         >
-          <router-link :to="`/pokemon/${pokemon.id - 1}`">
-            <span class="pi pi-angle-left text-2xl md:text-4xl"></span>
+          <router-link :class="{ disabled: true }" :to="`/pokemon/${pokemon.id - 1}`">
+            <span class="pi pi-angle-left text-2xl"></span>
           </router-link>
 
           <img
@@ -193,8 +174,6 @@ const abbreviatedBaseStats = ["HP", "ATK", "DEF", "SATK", "SDEF", "SPD"];
           <h3 class="text-xl font-bold" :style="{ color: respectiveColor(pokemon) }">
             Base Stats
           </h3>
-
-          <Paginator rows="10" totalRecords="120" :rowsPerPageOptions="[10, 20, 30]"></Paginator>
 
           <div class="w-full flex flex-col justify-start mt-4">
             <div class="flex items-center space-x-4">

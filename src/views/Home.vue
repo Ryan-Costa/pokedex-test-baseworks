@@ -6,7 +6,8 @@
   import Header from '../components/Header.vue';
   import PokemonCard from '../components/PokemonCard.vue';
   import { useToggleStore } from '../store/toggle-store';
-  import Paginator from 'primevue/paginator';
+  // @ts-ignore
+  import Paginator from 'primevue/paginator'; 
 
   const pokemons = ref<Pokemon[]>([])
   const search = ref<string>('')
@@ -55,8 +56,8 @@
     <Header @update:search="updateSearch" />
 
     <div class="flex-col bg-background lg:min-h-[900px] rounded-md flex items-start px-3 md:px-6 pt-6 md:pt-0 lg:px-12 shadow-inside-custom">
-      <div class="hidden md:flex w-full justify-end md:my-4 lg:my-8">
         <Paginator
+          class="hidden md:flex w-full justify-end md:my-4 lg:my-8"
           :template="{
               default: 'PrevPageLink PageLinks NextPageLink'
           }"
@@ -65,12 +66,13 @@
           :first="(currentPage - 1) * rowsPerPage"
           @page="onPageChange"
         />
-      </div>
+
       <div class="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-12 w-full">
-        <PokemonCard v-for="pokemon in filteredPokemons" :key="pokemon.url" :pokemon="pokemon" />
+        <PokemonCard v-for="pokemon in filteredPokemons.slice(0, rowsPerPage)" :key="pokemon.url" :pokemon="pokemon" />
       </div>
-      <div class="w-full flex justify-center md:justify-end md:my-4 lg:my-8">
+
         <Paginator
+          class="w-full flex justify-center md:justify-end md:my-4 lg:my-8"
           :template="{
               default: 'PrevPageLink PageLinks NextPageLink'
           }"
@@ -79,7 +81,6 @@
           :first="(currentPage - 1) * rowsPerPage"
           @page="onPageChange"
         />
-      </div>
     </div>
   </main>
 </template>
