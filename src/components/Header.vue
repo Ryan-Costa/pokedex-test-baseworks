@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 import { useToggleStore } from '../store/toggle-store';
 
 

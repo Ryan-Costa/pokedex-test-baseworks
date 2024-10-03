@@ -5,19 +5,33 @@
   import axios from "axios"
   import Header from '../components/Header.vue';
   import PokemonCard from '../components/PokemonCard.vue';
-import { useToggleStore } from '../store/toggle-store';
-  
+  import { useToggleStore } from '../store/toggle-store';
+  import Paginator from 'primevue/paginator';
+
   const pokemons = ref<Pokemon[]>([])
   const search = ref<string>('')
   const toggleStore = useToggleStore();
 
-  axios.get('pokemon?limit=12').then((response) => {
-    pokemons.value = response.data.results
-    console.log(response.data.results)
-  })
+  const totalRecords = ref(1025);
+  const rowsPerPage = ref(24);
+  const currentPage = ref(1);
+
+  const fetchPokemons = (page: number) => {
+    const offset = (page - 1) * rowsPerPage.value;
+    axios.get(`pokemon?limit=${rowsPerPage.value}&offset=${offset}`).then((response) => {
+      pokemons.value = response.data.results;
+    });
+  };
+
+  fetchPokemons(currentPage.value);
 
   const updateSearch = (value: string) => {
     search.value = value;
+  };
+
+  const onPageChange = (event: any) => {
+    currentPage.value = event.page + 1;
+    fetchPokemons(currentPage.value);
   };
 
   const filteredPokemons = computed(() => {
@@ -37,13 +51,41 @@ import { useToggleStore } from '../store/toggle-store';
 </script>
 
 <template>
-    <main class="h-full p-1 lg:p-6">
+    <main class="h-full p-1 md:p-6 md:px-6 lg:px-32">
     <Header @update:search="updateSearch" />
 
-    <div class="bg-background min-h-[650px] lg:min-h-[900px] rounded-md flex items-start px-3 lg:px-12 py-6 lg:py-12 shadow-inside-custom">
+    <div class="flex-col bg-background lg:min-h-[900px] rounded-md flex items-start px-3 md:px-6 pt-6 md:pt-0 lg:px-12 shadow-inside-custom">
+      <div class="hidden md:flex w-full justify-end md:my-4 lg:my-8">
+        <Paginator
+          :template="{
+              default: 'PrevPageLink PageLinks NextPageLink'
+          }"
+          :rows="rowsPerPage"
+          :totalRecords="totalRecords"
+          :first="(currentPage - 1) * rowsPerPage"
+          @page="onPageChange"
+        />
+      </div>
       <div class="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-12 w-full">
         <PokemonCard v-for="pokemon in filteredPokemons" :key="pokemon.url" :pokemon="pokemon" />
+      </div>
+      <div class="w-full flex justify-center md:justify-end md:my-4 lg:my-8">
+        <Paginator
+          :template="{
+              default: 'PrevPageLink PageLinks NextPageLink'
+          }"
+          :rows="rowsPerPage"
+          :totalRecords="totalRecords"
+          :first="(currentPage - 1) * rowsPerPage"
+          @page="onPageChange"
+        />
       </div>
     </div>
   </main>
 </template>
+
+<style scoped>
+ .p-paginator-padding {
+  padding: 0;
+ }
+</style>

@@ -16,6 +16,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --p-paginator-padding: 0.5rem 0rem !important;
+  --p-paginator-gap: 0rem !important;
+
   --box-shadow-inside: 0px 1px 3px 1px rgba(0, 0, 0, 0.25) inset;
   --box-shadow-outside: 0px 1px 3px 1px rgba(0, 0, 0, 0.2);
 
